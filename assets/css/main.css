@@ -425,31 +425,6 @@ body.intro-active {
 }
 
 /* ========================================
-   SCROLL CARD — Cartão fixo que transita entre módulos
-   Peek (bottom) → Center (sticky) → Dock (module 2)
-   ======================================== */
-.scroll-card {
-  position: fixed;
-  left: calc(50% + 12px);
-  transform: translateX(-50%);
-  z-index: 1001;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.6s ease;
-}
-
-.scroll-card.is-visible {
-  opacity: 1;
-}
-
-.scroll-card img {
-  width: clamp(210px, 28vw, 294px);
-  height: auto;
-  filter: drop-shadow(0 20px 60px rgba(0, 0, 0, 0.2))
-          drop-shadow(0 10px 25px rgba(0, 0, 0, 0.15));
-}
-
-/* ========================================
    HEADER — Layout copiado do projeto Negócios
    ======================================== */
 .site-header {
@@ -826,18 +801,16 @@ body.intro-active {
   flex-shrink: 0;
 }
 
-/* Placeholder — reserva espaço para o scroll-card fixo */
-.module-2-card-placeholder {
+/* Card image — static inside module 2 */
+.module-2-card-img {
   width: clamp(210px, 28vw, 294px);
-  aspect-ratio: 1.586;
+  height: auto;
+  filter: drop-shadow(0 20px 60px rgba(0, 0, 0, 0.2))
+          drop-shadow(0 10px 25px rgba(0, 0, 0, 0.15));
 }
 
-/* CTA in module 2 — fixed, follows card position (40px below) */
+/* CTA in module 2 — static */
 .module-2-cta {
-  position: fixed;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1003;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -851,14 +824,7 @@ body.intro-active {
   border: none;
   border-radius: 9999px;
   cursor: pointer;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.5s ease, background 0.2s ease;
-}
-
-.module-2-cta.is-visible {
-  opacity: 1;
-  pointer-events: auto;
+  transition: background 0.2s ease;
 }
 
 .module-2-cta:hover {

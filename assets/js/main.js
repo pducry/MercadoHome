@@ -58,9 +58,7 @@ async function sha256(message) {
 function startSite() {
   initIntroAnimation();
   initHeaderScroll();
-  initCardTransition();
   initHorizontalScroll();
-  initModule2Cta();
 }
 
 /* ========================================
@@ -165,98 +163,6 @@ function initHeaderScroll() {
 }
 
 /* ========================================
-   CARD TRANSITION — Module 1 → Module 2
-   O cartão é um elemento fixo que transita entre os módulos:
-   Phase A: Peek (fundo do viewport, 35% visível)
-   Phase B: Sobe ao centro e fica sticky
-   Phase C: Quando o placeholder do módulo 2 alcança o centro,
-            o cartão acompanha (dock)
-   ======================================== */
-function initCardTransition() {
-  const scrollCard = document.getElementById('scroll-card');
-  const placeholder = document.getElementById('module-2-card-placeholder');
-  const cta = document.querySelector('.module-2-cta');
-  const module2 = document.getElementById('module-2');
-
-  if (!scrollCard || !placeholder) return;
-
-  const cardImg = scrollCard.querySelector('img');
-  let ticking = false;
-
-  function getCardHeight() {
-    return cardImg.offsetHeight || window.innerHeight * 0.28;
-  }
-
-  function updateCardPosition() {
-    const viewportH = window.innerHeight;
-    const cardH = getCardHeight();
-    const scrollY = window.scrollY;
-
-    // Peek position: card bottom = viewport bottom, 35% visible
-    const peekTop = viewportH - (cardH * 0.35);
-
-    // Center position: card centered in viewport
-    const centerTop = (viewportH - cardH) / 2;
-
-    // Scroll range for peek → center (80% of hero-spacer for slower movement)
-    const animationRange = viewportH * 0.8;
-
-    // Placeholder position in viewport
-    const placeholderRect = placeholder.getBoundingClientRect();
-    const placeholderCenterY = placeholderRect.top + placeholderRect.height / 2;
-    const viewportCenterY = viewportH / 2;
-
-    let targetTop;
-
-    if (scrollY <= animationRange) {
-      // Phase A: Peek → Center (gentle easeOutQuad, follows scroll closely)
-      const progress = Math.min(scrollY / animationRange, 1);
-      const eased = 1 - Math.pow(1 - progress, 2);
-      targetTop = peekTop + (centerTop - peekTop) * eased;
-    } else if (placeholderCenterY > viewportCenterY) {
-      // Phase B: Card stays sticky at center
-      targetTop = centerTop;
-    } else {
-      // Phase C: Dock — card follows placeholder
-      targetTop = placeholderCenterY - cardH / 2;
-    }
-
-    scrollCard.style.top = targetTop + 'px';
-
-    // Show scroll-card only when user starts scrolling
-    scrollCard.classList.toggle('is-visible', scrollY > 10);
-
-    // Position CTA 40px below the card, centered with it
-    if (cta && module2) {
-      const ctaTop = targetTop + cardH + 20;
-      cta.style.top = ctaTop + 'px';
-      const cardRect = scrollCard.getBoundingClientRect();
-      const cardCenterX = cardRect.left + cardRect.width / 2;
-      cta.style.left = cardCenterX + 'px';
-
-      // Show CTA when module 2 is in viewport
-      const m2Rect = module2.getBoundingClientRect();
-      const isVisible = m2Rect.top < viewportH * 0.8 && m2Rect.bottom > viewportH * 0.2;
-      cta.classList.toggle('is-visible', isVisible);
-    }
-
-    ticking = false;
-  }
-
-  function onScroll() {
-    if (!ticking) {
-      requestAnimationFrame(updateCardPosition);
-      ticking = true;
-    }
-  }
-
-  // Set initial position (peek)
-  requestAnimationFrame(updateCardPosition);
-
-  window.addEventListener('scroll', onScroll, { passive: true });
-}
-
-/* ========================================
    HORIZONTAL SCROLL — Module 2 → Module 3
    Scroll vertical controla translateX do track
    ======================================== */
@@ -294,6 +200,3 @@ function initHorizontalScroll() {
   window.addEventListener('scroll', onScroll, { passive: true });
   requestAnimationFrame(update);
 }
-
-/* initModule2Cta — CTA positioning now handled inside initCardTransition */
-function initModule2Cta() {}
