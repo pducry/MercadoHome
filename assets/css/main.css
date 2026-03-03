@@ -897,7 +897,7 @@ body.intro-active {
 /* Image + Badge container */
 .module-3-image-wrap {
   position: relative;
-  width: clamp(260px, 35vw, 380px);
+  width: clamp(280px, 28vw, 420px);
 }
 
 .module-3-image {
@@ -905,8 +905,6 @@ body.intro-active {
   height: auto;
   border-radius: 16px;
   display: block;
-  object-fit: cover;
-  aspect-ratio: 4 / 5;
 }
 
 /* Circular rotating badge */
