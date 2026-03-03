@@ -263,8 +263,6 @@ function initCardTransition() {
 function initHorizontalScroll() {
   const section = document.getElementById('horizontal-section');
   const track = document.getElementById('horizontal-track');
-  const scrollCard = document.getElementById('scroll-card');
-  const cta = document.querySelector('.module-2-cta');
 
   if (!section || !track) return;
 
@@ -282,17 +280,6 @@ function initHorizontalScroll() {
     // Apply horizontal translation
     const translateX = -progress * 50;
     track.style.transform = 'translateX(' + translateX + '%)';
-
-    // Fade out scroll-card and CTA as horizontal scroll begins
-    if (scrollCard) {
-      const fadeOut = 1 - Math.min(progress * 4, 1);
-      scrollCard.style.opacity = progress > 0 ? fadeOut : '';
-    }
-    if (cta && progress > 0) {
-      cta.style.opacity = 1 - Math.min(progress * 4, 1);
-      if (progress > 0.25) cta.style.pointerEvents = 'none';
-      else cta.style.pointerEvents = '';
-    }
 
     ticking = false;
   }
