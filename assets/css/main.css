@@ -898,6 +898,7 @@ body.intro-active {
 .module-3-image-wrap {
   position: relative;
   width: clamp(280px, 28vw, 420px);
+  margin-left: 50px;
 }
 
 .module-3-image {
