@@ -727,14 +727,38 @@ body.intro-active {
 }
 
 /* ========================================
+   HORIZONTAL SECTION — Module 2 + Module 3
+   Scroll vertical → navegação horizontal
+   ======================================== */
+.horizontal-section {
+  position: relative;
+  z-index: 1000;
+  height: 200vh;
+}
+
+.horizontal-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.horizontal-track {
+  display: flex;
+  height: 100%;
+  width: 200%;
+  will-change: transform;
+}
+
+/* ========================================
    MODULE 2 — Conta & Cofrinhos
    ======================================== */
 .module-2 {
   position: relative;
-  z-index: 1000;
   background: #F5F5F5;
   padding: 80px 2rem 60px;
-  min-height: 100vh;
+  width: 50%;
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -859,6 +883,132 @@ body.intro-active {
 
   .module-2-center {
     order: -1;
+  }
+}
+
+/* ========================================
+   MODULE 3 — Cartão de Crédito
+   ======================================== */
+.module-3 {
+  position: relative;
+  background: #FFE600;
+  width: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 2rem;
+}
+
+.module-3-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+  max-width: 600px;
+  width: 100%;
+}
+
+.module-3-title {
+  margin: 0;
+  text-align: center;
+  font-family: var(--font);
+  font-size: clamp(2rem, 1.2rem + 3.5vw, 3.2rem);
+  font-weight: 800;
+  color: #2D2D2D;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+.module-3-title span {
+  display: block;
+}
+
+.module-3-title strong {
+  font-weight: 900;
+}
+
+/* Image + Badge container */
+.module-3-image-wrap {
+  position: relative;
+  width: clamp(260px, 35vw, 380px);
+}
+
+.module-3-image {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  display: block;
+  object-fit: cover;
+  aspect-ratio: 4 / 5;
+}
+
+/* Circular rotating badge */
+.module-3-badge {
+  position: absolute;
+  bottom: -20px;
+  right: -40px;
+  width: 120px;
+  height: 120px;
+  animation: spin 15s linear infinite;
+}
+
+.module-3-badge svg {
+  width: 100%;
+  height: 100%;
+}
+
+.module-3-badge text {
+  font-family: var(--font);
+  font-size: 11.5px;
+  font-weight: 700;
+  fill: #2D2D2D;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* CTA — Module 3 */
+.module-3-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.9rem 2rem;
+  font-family: var(--font);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  background: #5A5BF0;
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.module-3-cta:hover {
+  background: #4A4BD8;
+}
+
+.module-3-cta svg {
+  flex-shrink: 0;
+}
+
+/* Mobile adjustments for Module 3 */
+@media (max-width: 767px) {
+  .module-3-badge {
+    width: 90px;
+    height: 90px;
+    bottom: -15px;
+    right: -25px;
+  }
+
+  .module-3-badge text {
+    font-size: 10px;
   }
 }
 

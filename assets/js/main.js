@@ -59,6 +59,7 @@ function startSite() {
   initIntroAnimation();
   initHeaderScroll();
   initCardTransition();
+  initHorizontalScroll();
   initModule2Cta();
 }
 
@@ -253,6 +254,58 @@ function initCardTransition() {
   requestAnimationFrame(updateCardPosition);
 
   window.addEventListener('scroll', onScroll, { passive: true });
+}
+
+/* ========================================
+   HORIZONTAL SCROLL — Module 2 → Module 3
+   Scroll vertical controla translateX do track
+   ======================================== */
+function initHorizontalScroll() {
+  const section = document.getElementById('horizontal-section');
+  const track = document.getElementById('horizontal-track');
+  const scrollCard = document.getElementById('scroll-card');
+  const cta = document.querySelector('.module-2-cta');
+
+  if (!section || !track) return;
+
+  let ticking = false;
+
+  function update() {
+    const sectionTop = section.offsetTop;
+    const scrollRange = section.offsetHeight - window.innerHeight;
+    const scrollY = window.scrollY;
+
+    // Progress: 0 (Module 2 fully visible) → 1 (Module 3 fully visible)
+    const rawProgress = (scrollY - sectionTop) / scrollRange;
+    const progress = Math.max(0, Math.min(1, rawProgress));
+
+    // Apply horizontal translation
+    const translateX = -progress * 50;
+    track.style.transform = 'translateX(' + translateX + '%)';
+
+    // Fade out scroll-card and CTA as horizontal scroll begins
+    if (scrollCard) {
+      const fadeOut = 1 - Math.min(progress * 4, 1);
+      scrollCard.style.opacity = progress > 0 ? fadeOut : '';
+    }
+    if (cta && progress > 0) {
+      cta.style.opacity = 1 - Math.min(progress * 4, 1);
+      if (progress > 0.25) cta.style.pointerEvents = 'none';
+      else cta.style.pointerEvents = '';
+    }
+
+    ticking = false;
+  }
+
+  function onScroll() {
+    if (!ticking) {
+      requestAnimationFrame(update);
+      ticking = true;
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  requestAnimationFrame(update);
 }
 
 /* initModule2Cta — CTA positioning now handled inside initCardTransition */
