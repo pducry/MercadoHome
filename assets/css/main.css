@@ -362,6 +362,7 @@ body.intro-active {
 
 .hero-title {
   margin: 0;
+  transform: translateY(-25px);
 }
 
 .hero-title-line {
