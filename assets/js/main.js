@@ -56,6 +56,12 @@ async function sha256(message) {
 }
 
 function startSite() {
+  // Previne restauração de scroll do browser
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+  window.scrollTo(0, 0);
+
   initIntroAnimation();
   initHeaderScroll();
   initHorizontalScroll();
@@ -172,21 +178,27 @@ function initHorizontalScroll() {
 
   if (!section || !track) return;
 
+  // Número de painéis e cálculo do translateX máximo
+  const panelCount = 4;
+  const maxTranslate = ((panelCount - 1) / panelCount) * 100; // 75%
+
   let ticking = false;
+  let cachedTop = null;
+  let cachedRange = null;
+
+  function recalcLayout() {
+    cachedTop = section.getBoundingClientRect().top + window.scrollY;
+    cachedRange = section.offsetHeight - window.innerHeight;
+  }
 
   function update() {
-    const sectionTop = section.offsetTop;
-    const scrollRange = section.offsetHeight - window.innerHeight;
-    const scrollY = window.scrollY;
+    if (cachedTop === null) recalcLayout();
 
-    // Progress: 0 (Module 2) → 1 (Module 5 fully visible)
-    const rawProgress = (scrollY - sectionTop) / scrollRange;
+    const scrollY = window.scrollY;
+    const rawProgress = (scrollY - cachedTop) / cachedRange;
     const progress = Math.max(0, Math.min(1, rawProgress));
 
-    // 4 panels: max translate = 75% of track width
-    const translateX = -progress * 75;
-    track.style.transform = 'translateX(' + translateX + '%)';
-
+    track.style.transform = 'translateX(' + (-progress * maxTranslate) + '%)';
     ticking = false;
   }
 
@@ -197,6 +209,11 @@ function initHorizontalScroll() {
     }
   }
 
+  // Recalcular posições no resize (mudança de URL bar mobile, etc.)
+  window.addEventListener('resize', () => { cachedTop = null; }, { passive: true });
   window.addEventListener('scroll', onScroll, { passive: true });
-  requestAnimationFrame(update);
+
+  // Inicializar posição correta
+  recalcLayout();
+  update();
 }

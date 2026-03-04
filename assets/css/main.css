@@ -708,8 +708,13 @@ body.intro-active {
    ======================================== */
 .horizontal-section {
   position: relative;
-  z-index: 1000;
+  z-index: 1;
   height: 400vh;
+}
+
+/* Elevar z-index somente depois da intro */
+body:not(.intro-active) .horizontal-section {
+  z-index: 1000;
 }
 
 .horizontal-sticky {
