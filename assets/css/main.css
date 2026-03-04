@@ -1063,7 +1063,7 @@ body.intro-active {
 
 .module-5-image-wrap {
   position: relative;
-  width: clamp(280px, 28vw, 420px);
+  width: clamp(325px, 32.5vw, 487px);
 }
 
 .module-5-image {
