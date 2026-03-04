@@ -1129,6 +1129,41 @@ body:not(.intro-active) .horizontal-section {
   flex-shrink: 0;
 }
 
+/* ========================================
+   MODULE 6 — Sem Tarifas Escondidas
+   Scroll vertical normal
+   ======================================== */
+.module-6 {
+  position: relative;
+  z-index: 1000;
+  background: #0A0B6B;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 2rem;
+}
+
+.module-6-inner {
+  max-width: 900px;
+  width: 100%;
+}
+
+.module-6-title {
+  margin: 0;
+  font-family: var(--font);
+  font-size: clamp(3.5rem, 2rem + 7vw, 7rem);
+  font-weight: 800;
+  font-style: italic;
+  color: #FFFFFF;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+
+.module-6-title span {
+  display: block;
+}
+
 /* --- Reduced motion: skip everything --- */
 @media (prefers-reduced-motion: reduce) {
   .intro-overlay {
