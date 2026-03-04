@@ -1151,7 +1151,7 @@ body:not(.intro-active) .horizontal-section {
 .module-6-title {
   margin: 0;
   font-family: var(--font);
-  font-size: clamp(3.5rem, 2rem + 7vw, 7rem);
+  font-size: clamp(4.375rem, 2.5rem + 8.75vw, 8.75rem);
   font-weight: 800;
   color: #FFFFFF;
   letter-spacing: -0.03em;
