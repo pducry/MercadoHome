@@ -135,13 +135,31 @@ function initIntroAnimation() {
    ======================================== */
 function initHeaderScroll() {
   const header = document.getElementById('site-header');
+  const section = document.getElementById('horizontal-section');
   if (!header) return;
 
   let lastScrollY = window.scrollY;
   let ticking = false;
 
+  function isInHorizontalSection() {
+    if (!section) return false;
+    const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+    const sectionBottom = sectionTop + section.offsetHeight;
+    const scrollY = window.scrollY;
+    return scrollY >= sectionTop && scrollY <= sectionBottom;
+  }
+
   function updateHeader() {
     const currentScrollY = window.scrollY;
+
+    // Dentro da seção horizontal → sempre colapsado
+    if (isInHorizontalSection()) {
+      header.classList.add('is-collapsed');
+      header.classList.remove('is-expanded');
+      lastScrollY = currentScrollY;
+      ticking = false;
+      return;
+    }
 
     // Scroll down → collapse nav
     if (currentScrollY > lastScrollY) {
