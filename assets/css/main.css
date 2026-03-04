@@ -1066,6 +1066,34 @@ body:not(.intro-active) .horizontal-section {
   font-weight: 900;
 }
 
+/* Highlights — frases com emoji */
+.module-5-highlights {
+  display: flex;
+  gap: 2rem;
+}
+
+.module-5-highlight {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(0, 0, 0, 0.06);
+  padding: 0.6rem 1.2rem;
+  border-radius: 9999px;
+}
+
+.module-5-highlight-icon {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.module-5-highlight-text {
+  font-family: var(--font);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #2D2D2D;
+  white-space: nowrap;
+}
+
 .module-5-image-wrap {
   position: relative;
   width: clamp(374px, 37.4vw, 560px);
