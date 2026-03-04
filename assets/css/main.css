@@ -1076,9 +1076,6 @@ body:not(.intro-active) .horizontal-section {
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  background: rgba(0, 0, 0, 0.06);
-  padding: 0.6rem 1.2rem;
-  border-radius: 9999px;
 }
 
 .module-5-highlight-icon {
