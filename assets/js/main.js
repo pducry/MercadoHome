@@ -65,6 +65,7 @@ function startSite() {
   initIntroAnimation();
   initHeaderScroll();
   initHorizontalScroll();
+  initScrollReveal();
 }
 
 /* ========================================
@@ -234,4 +235,23 @@ function initHorizontalScroll() {
   // Inicializar posição correta
   recalcLayout();
   update();
+}
+
+/* ========================================
+   SCROLL REVEAL — Animar elementos ao entrar na viewport
+   ======================================== */
+function initScrollReveal() {
+  const targets = document.querySelectorAll('.module-6');
+  if (!targets.length) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  targets.forEach((el) => observer.observe(el));
 }

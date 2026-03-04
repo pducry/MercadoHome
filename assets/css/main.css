@@ -1145,8 +1145,7 @@ body:not(.intro-active) .horizontal-section {
 }
 
 .module-6-inner {
-  max-width: 900px;
-  width: 100%;
+  text-align: center;
 }
 
 .module-6-title {
@@ -1154,7 +1153,6 @@ body:not(.intro-active) .horizontal-section {
   font-family: var(--font);
   font-size: clamp(3.5rem, 2rem + 7vw, 7rem);
   font-weight: 800;
-  font-style: italic;
   color: #FFFFFF;
   letter-spacing: -0.03em;
   line-height: 1.05;
@@ -1162,6 +1160,18 @@ body:not(.intro-active) .horizontal-section {
 
 .module-6-title span {
   display: block;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.module-6-title span:nth-child(2) {
+  transition-delay: 0.15s;
+}
+
+.module-6.is-visible .module-6-title span {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* --- Reduced motion: skip everything --- */
