@@ -179,12 +179,12 @@ function initHorizontalScroll() {
     const scrollRange = section.offsetHeight - window.innerHeight;
     const scrollY = window.scrollY;
 
-    // Progress: 0 (Module 2) → 1 (Module 4 fully visible)
+    // Progress: 0 (Module 2) → 1 (Module 5 fully visible)
     const rawProgress = (scrollY - sectionTop) / scrollRange;
     const progress = Math.max(0, Math.min(1, rawProgress));
 
-    // 3 panels: max translate = 66.666% of track width
-    const translateX = -progress * 66.666;
+    // 4 panels: max translate = 75% of track width
+    const translateX = -progress * 75;
     track.style.transform = 'translateX(' + translateX + '%)';
 
     ticking = false;
