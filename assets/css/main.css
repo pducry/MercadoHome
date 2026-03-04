@@ -1068,7 +1068,7 @@ body:not(.intro-active) .horizontal-section {
 
 .module-5-image-wrap {
   position: relative;
-  width: clamp(325px, 32.5vw, 487px);
+  width: clamp(374px, 37.4vw, 560px);
 }
 
 .module-5-image {
