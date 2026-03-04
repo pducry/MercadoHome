@@ -73,12 +73,12 @@ function startSite() {
 
    Timeline (−35% total):
    0.00s — Tela amarela, nada visível
-   0.20s — Phase 1: Texto fade-in centralizado
-   1.50s — Phase 2: Cartão sobe do fundo → centro (por cima do texto)
-   2.58s — Phase 3a: Cartão sai para CIMA + texto some
-   3.20s — Phase 3b: Imagem BG sobe do fundo
-   4.28s — Phase 4: Menu desce do topo (colapsado) + liberar scroll
-   4.62s — Phase 5: Hero — imagem escurece, texto + CTA aparecem
+   0.16s — Phase 1: Texto fade-in centralizado
+   1.20s — Phase 2: Cartão sobe do fundo → centro (por cima do texto)
+   2.07s — Phase 3a: Cartão sai para CIMA + texto some
+   2.56s — Phase 3b: Imagem BG sobe do fundo
+   3.43s — Phase 4: Menu desce do topo (colapsado) + liberar scroll
+   3.70s — Phase 5: Hero — imagem escurece, texto + CTA aparecem
    ======================================== */
 function initIntroAnimation() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -94,25 +94,34 @@ function initIntroAnimation() {
     return;
   }
 
+  // Bloquear scroll durante a intro — forçar posição no topo
+  let introComplete = false;
+  function lockScroll() {
+    if (!introComplete) {
+      window.scrollTo(0, 0);
+    }
+  }
+  window.addEventListener('scroll', lockScroll);
+
   // Phase 1: Texto fade-in (sem menu)
   setTimeout(() => {
     overlay.classList.add('phase-text');
-  }, 204);
+  }, 163);
 
   // Phase 2: Cartão sobe do fundo → centro (por cima do texto)
   setTimeout(() => {
     overlay.classList.add('phase-card');
-  }, 1496);
+  }, 1197);
 
   // Phase 3a: Cartão sai para CIMA + texto some
   setTimeout(() => {
     overlay.classList.add('phase-card-exit');
-  }, 2584);
+  }, 2067);
 
   // Phase 3b: Imagem BG sobe do fundo (após cartão sair)
   setTimeout(() => {
     overlay.classList.add('phase-image');
-  }, 3196);
+  }, 2557);
 
   // Phase 4: Menu desce do topo (colapsado) + liberar scroll
   setTimeout(() => {
@@ -122,12 +131,14 @@ function initIntroAnimation() {
       header.classList.add('is-visible');
       header.classList.add('is-collapsed');
     }
-  }, 4284);
+  }, 3427);
 
-  // Phase 5: Hero — imagem escurece 70%, texto + CTA aparecem
+  // Phase 5: Hero — imagem escurece 70%, texto + CTA aparecem + liberar scroll
   setTimeout(() => {
     overlay.classList.add('phase-hero');
-  }, 4624);
+    introComplete = true;
+    window.removeEventListener('scroll', lockScroll);
+  }, 3699);
 }
 
 /* ========================================
